@@ -1,0 +1,15 @@
+<div *ngIf="details">
+  <div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="{{details.image}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title center capitalize">{{details.name}}</h5>
+      <p class="card-text center capitalize">Height: {{details.height}}</p>
+      <p class="card-text center capitalize">Weight: {{details.weight}}</p>
+      <p class="card-text center capitalize">Abilities: {{details.abilities}}</p>
+      <div class="center">
+        <div *ngIf="!catched; else release"><a class="btn btn-success" (click)="onCatch()">Catch!</a></div>
+        <ng-template #release> <a class="btn btn-danger" (click)="onCatch()">Release!</a></ng-template>
+      </div>
+    </div>
+  </div>
+</div>

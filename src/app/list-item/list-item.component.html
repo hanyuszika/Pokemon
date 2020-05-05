@@ -1,0 +1,45 @@
+
+    <div class="container">
+        <h1 class="center">Let's catch them all!</h1>
+        <div class="pokemon-select center" style="width:200px;">
+            <select class="selectpicker" data-style="btn-primary" (change)="onChange($event.target.value)">
+                <option value="" disabled selected hidden>Choose...</option>
+                <option *ngFor="let pokemontype of pokemonTypes" value={{pokemontype.url}} class="capitalize">
+                    {{pokemontype.name}}</option>
+            </select>
+        </div>
+        <br />
+        <div class="row" *ngIf="pokemons">
+            <div class="col-6">
+                <div class="row">
+                    <input class="form-control col-9 offset-1" type="text" name="search" [(ngModel)]="searchText"
+                        placeholder="Search">
+                    <input class="form-control col-1" type="checkbox" name="checkbox"
+                        (change)="onCheckBoxChanged(checkbox)" [(ngModel)]="checkbox">
+                </div>
+                <div class="col-12">
+                    <table class="table table-striped">
+                        <thead>
+                            <th class="center">Name</th>
+                            <th class="center">Catched</th>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of pokemons | filter:searchText | filter:catchedFilter"
+                                (click)="getPokemon(item.url)">
+                                <td class="center capitalize">{{item.name}}</td>
+                                <td class="center capitalize">
+                                    {{item.catched}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="selectedPokemon" class="col-6">
+                <app-card [details]="selectedPokemon" (catch)="onCatch($event)"></app-card>
+            </div>
+        </div>
+    </div>
+<div class="isLoading" *ngIf="isLoading">
+    <app-loading></app-loading>
+</div>
